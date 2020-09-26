@@ -34,7 +34,13 @@ m.help = "`db search|s` - Search in an area for coins!";
 m.valids = ['search', 's'];
 
 m.valid = function(data) {
-  if (!m.valids.includes(data[0])) {
+  const msg = helpers.db.parse_msg(data);
+  if (!m.valids.includes(msg[0])) {
+    return false;
+  }
+
+  if (global.users[data.author.id].search_timeout) {
+    data.reply("Please wait `30 seconds` inbetween searches.");
     return false;
   }
 
@@ -56,19 +62,15 @@ m.pass = function(data) {
 m.handle = async function(data, user=null, passing=false) {
   // Validate
   const msg = helpers.db.parse_msg(data);
-  if (!m.valid(msg) && !passing) {
+  if (!m.valid(data) && !passing) {
     return false;
   }
-
-  console.log("test");
 
   var mem_user = global.users[data.author.id];
 
   if (!mem_user) {
     return false;
   }
-
-  console.log(mem_user.searching);
 
   if (mem_user.searching) {
     if (mem_user.search_answers.includes(data.content)) {
@@ -103,6 +105,11 @@ m.handle = async function(data, user=null, passing=false) {
 
     mem_user.searching = true;
     mem_user.search_answers = search_areas;
+
+    mem_user.search_timeout = true;
+    setTimeout(function() {
+      mem_user.search_timeout = false;
+    }, 30000);
 
     var message = "Which area would you like to look?\n";
 
