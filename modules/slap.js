@@ -55,9 +55,9 @@ m.handle = async function(data, user=null) {
   }
 
   if (mention_user) {
-    var hit = Math.floor(Math.random() * 10) < 5;
+    var hit = Math.floor(Math.random() * 10) < 8;
     var hit_person;
-    var hit_dmg = Math.floor(Math.random() * 10);
+    var hit_dmg = Math.floor(Math.random() * 10)+1;
     var affected_user;
 
     if (hit) {
@@ -74,7 +74,7 @@ m.handle = async function(data, user=null) {
 
     affected_user.hp -= hit_dmg;
 
-    hit_effect = m.valids_plural[m.valids.indexOf(msg[1])];
+    hit_effect = m.valids_plural[m.valids.indexOf(msg[0])];
 
     if (affected_user.hp <= 0) {
       affected_user.hp = 100;
