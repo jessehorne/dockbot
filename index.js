@@ -8,7 +8,7 @@ const Discord = require('discord.js');
 const dockbot = new Discord.Client();
 
 if (process.env.APP_DEBUG) {
-  models.sequelize.sync({ force: true });
+  // models.sequelize.sync({ force: true });
 }
 
 global.users = [];
