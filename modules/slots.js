@@ -54,7 +54,7 @@ m.get_win_amt = function(bet, line) {
 
     if (point >= 2) {
       // console.log("Point:", point, "Index:", index)
-      win_amt += bet * (index+1) * multiplier;
+      win_amt += bet * (index) * multiplier;
     }
   });
 
@@ -139,22 +139,13 @@ m.handle = async function(data, user=null) {
 
   // Handle Slots
   var line = m.generate_line();
-  var tmp_line = ["X", "Y", "Z"]
+  var tmp_line = [":stop_button:", ":stop_button:", ":stop_button:"]
   var win_amt = m.get_win_amt(amt, line);
-
-  formatted_line = "";
-
-  for (var x=0; x<line.length; x++) {
-    formatted_line = formatted_line + ':' + tmp_line[x] + ":";
-    if (x < 2) {
-      formatted_line = formatted_line + ' - ';
-    }
-  }
 
 
 
   // Create Embed
-  var embed = m.create_embed(msg[1], "X - Y - Z");
+  var embed = m.create_embed(msg[1], ":stop_button: - :stop_button: - :stop_button:");
 
 
 
@@ -164,14 +155,14 @@ m.handle = async function(data, user=null) {
 
   // first
   setTimeout(function() {
-    var formatted_line = `:${line[0]}: - Y - Z`;
+    var formatted_line = `:${line[0]}: - :stop_button: - :stop_button:`;
     var embed = m.create_embed(msg[1], formatted_line);
     mem_user.slots_msg.edit(embed);
   }, 1000);
 
   // second
   setTimeout(function() {
-    var formatted_line = `:${line[0]}: - :${line[1]}: - Z`;
+    var formatted_line = `:${line[0]}: - :${line[1]}: - :stop_button:`;
     var embed = m.create_embed(msg[1], formatted_line);
     mem_user.slots_msg.edit(embed);
   }, 2000);
@@ -187,7 +178,11 @@ m.handle = async function(data, user=null) {
       user.wallet -= amt;
     } else {
       message = message + "You win `$" + win_amt + "`!";
-      user.wallet += amt;
+
+      if (amt != win_amt) {
+        user.wallet += win_amt;
+      }
+
     }
 
     user.save();

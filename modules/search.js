@@ -29,9 +29,9 @@ function generate_areas() {
 
 var m = {};
 
-m.help = "`db search|s` - Search in an area for coins!";
+m.help = "`db search` - Search in an area for coins!";
 
-m.valids = ['search', 's'];
+m.valids = ['search'];
 
 m.valid = function(data) {
   const msg = helpers.db.parse_msg(data);

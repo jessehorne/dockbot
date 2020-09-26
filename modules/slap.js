@@ -5,9 +5,11 @@ const models = require('../models').db;
 
 var m = {};
 
-m.help = "`db slap|punch|kick` - Attack your opponent!";
+m.help = "`db slap|punch|kick @user` - Attack your opponent!";
 
 m.valids = ['slap', 'punch', 'kick'];
+m.valids_plural = ['slapped', 'punched', 'kicked'];
+
 m.valid = function(data) {
   const msg = helpers.db.parse_msg(data);
 
@@ -72,7 +74,7 @@ m.handle = async function(data, user=null) {
 
     affected_user.hp -= hit_dmg;
 
-    hit_effect = msg[0] + "ed";
+    hit_effect = m.valids_plural[m.valids.indexOf(msg[1])];
 
     if (affected_user.hp <= 0) {
       affected_user.hp = 100;
