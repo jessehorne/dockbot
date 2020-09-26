@@ -188,7 +188,7 @@ m.handle = async function(data, user=null) {
 
     user.save();
 
-    formatted_line += "\n" + message;
+    formatted_line += "\n" + message + "\nYou new balance is `$" + user.wallet + "`.";
 
     var embed = m.create_embed(msg[1], formatted_line);
 
