@@ -33,7 +33,7 @@ m.generate_line = function() {
   return line;
 }
 
-m.get_win_amt = function(line) {
+m.get_win_amt = function(bet, line) {
   var win_amt = 0;
 
   const points = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -54,7 +54,7 @@ m.get_win_amt = function(line) {
 
     if (point >= 2) {
       // console.log("Point:", point, "Index:", index)
-      win_amt += (index+1) * multiplier;
+      win_amt += bet * (index+1) * multiplier;
     }
   });
 
@@ -68,12 +68,17 @@ m.create_embed = function(bet, formatted_line) {
   embed.setColor('#e8eb34');
   embed.setTitle(`Slots :${m.header}: :${m.header}: :${m.header}:`);
 
+  embed.setDescription('Need help? Type `db slots help`.');
+
+
   var message = "";
 
   message = "Your Bet - `$" + bet + "`\n";
   message = message + "\n" + formatted_line + "\n";
 
-  embed.addField('Results\n' + message);
+  embed.addField('Results', message)
+
+  embed.setFooter('Be careful! Gambling is addictive.');
 
   return embed;
 }
@@ -85,13 +90,20 @@ m.valid = function(data) {
     return false;
   }
 
+  if (msg[1] == "help") {
+    var desc = 'If you get 2 out of 3 of the same number, you get the pairs number x your bet. If you get 3 of the same number, you win the pairs number x your bet x 2.\n';
+    desc = desc + "For example if you get `2-2-3` and your bet was `$1`, then you get `2 x 1` which is `$3`. If you got three 2's in a row, you would have won `$6`.";
+    data.reply(desc);
+    return false;
+  }
+
   if (global.users[data.author.id].slots_timeout) {
     data.reply("Please wait `1 second` inbetween slots.");
     return false;
   }
 
   if (!msg[1]) {
-    data.reply("You didn't include an amount to bet...");
+    data.reply("You didn't include an amount to bet... Try `db slots help`.");
     return false;
   }
 
@@ -126,7 +138,7 @@ m.handle = async function(data, user=null) {
   // Handle Slots
   var line = m.generate_line();
   var tmp_line = ["X", "Y", "Z"]
-  var win_amt = m.get_win_amt(line);
+  var win_amt = m.get_win_amt(amt, line);
 
   formatted_line = "";
 
@@ -168,9 +180,13 @@ m.handle = async function(data, user=null) {
 
     if (win_amt <= 0) {
       message = message + "You lost `$" + msg[1] + "`... :(";
+      user.wallet -= amt;
     } else {
       message = message + "You win `$" + win_amt + "`!";
+      user.wallet += amt;
     }
+
+    user.save();
 
     formatted_line += "\n" + message;
 
