@@ -12,6 +12,17 @@ if (process.env.APP_DEBUG) {
 }
 
 global.users = [];
+
+async function load_users() {
+  var db_users = await models.User.findAll();
+  db_users.forEach(function(u) {
+    global.users[u.discord_id] = {};
+    global.users[u.discord_id].can_talk = true;
+  });
+}
+
+load_users();
+
 var helps = [];
 
 modules.forEach(function(m) {
