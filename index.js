@@ -119,8 +119,13 @@ dockbot.on('message', async function (msg) {
     }
   });
 
-  if (helper.db.parse_msg(msg)[0] == 'help') {
+  const cmd = helper.db.parse_msg(msg)[0];
+
+  if (cmd == 'help') {
     msg.reply("", helper.db.help(helps));
+    return;
+  } else if (cmd == 'github') {
+    msg.reply("Want to contribute or give us a star? Great!\n`https://github.com/jessehorne/dockbot`");
     return;
   }
 
