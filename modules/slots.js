@@ -135,6 +135,8 @@ m.handle = async function(data, user=null) {
 
   const mem_user = global.users[data.author.id];
 
+  msg[1] = Math.floor(parseInt(msg[1]));
+
   // Handle Slots
   var line = m.generate_line();
   var tmp_line = ["X", "Y", "Z"]
@@ -153,6 +155,8 @@ m.handle = async function(data, user=null) {
 
   // Create Embed
   var embed = m.create_embed(msg[1], "X - Y - Z");
+
+
 
   mem_user.slots_msg = await data.reply("", embed);
 
