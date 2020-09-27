@@ -17,10 +17,12 @@ m.reel = [];
 // Put 11 zeros, 10 ones, etc...
 for (var i=11; i>0; i--) {
   var choice = 11 - i;
-  for (var x=choice; x<12; x++) {
+  for (var x=choice; x<20; x++) {
     m.reel.push(m.icons[choice]);
   }
 }
+
+console.log(m.reel)
 
 m.generate_line = function() {
   var line = [];
@@ -54,7 +56,7 @@ m.get_win_amt = function(bet, line) {
 
     if (point >= 2) {
       // console.log("Point:", point, "Index:", index)
-      win_amt += bet * (index) * multiplier;
+      win_amt += bet * (index+1) * multiplier;
     }
   });
 
