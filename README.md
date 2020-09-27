@@ -1,6 +1,6 @@
 DockBot
 ===
 
-A Discord bot, inspired by Dank Memer, that's SFW, that can entertain members of your community and keep them engaged.
+A pirate themed Discord bot game inspired by DankMemer.
 
 more coming soon...

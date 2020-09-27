@@ -19,7 +19,7 @@ db.help = function(helps) {
   // Create Embed
   const embed = new Discord.MessageEmbed();
   embed.setColor('#03f4fc');
-  embed.setTitle(`Aaarrg, here's yer status`);
+  embed.setTitle(`Stats`);
 
   embed.addFields(
     { name: 'Commands', value: message}
