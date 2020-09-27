@@ -58,6 +58,11 @@ m.handle = async function(data, user=null) {
     var hit = Math.floor(Math.random() * 10) < 8;
     var hit_person;
     var hit_dmg = Math.floor(Math.random() * 10)+1;
+
+    if (user.used_brass) {
+      hit_dmg = hit_dmg * 2;
+    }
+
     var affected_user;
 
     if (hit) {

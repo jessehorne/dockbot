@@ -181,19 +181,26 @@ m.handle = async function(data, user=null) {
         m.remove_inv_item(user, item);
 
         await user.save();
+
+        data.reply("You've put on your Brass Knuckles. All future attack damage will be doubled.");
       }
     } else if (item == "exp") {
       user.exp += 1;
       m.remove_inv_item(user, item);
       await user.save();
+
+      data.reply("You've gained one experience point!");
     } else if (item == "karma") {
       user.karma = 0;
       m.remove_inv_item(user, item);
       await user.save();
+
+      data.reply("Your karma is back to neutral (aka `0`).");
     } else if (item == "armor") {
       user.hp += 50;
       m.remove_inv_item(user, item);
       await user.save();
+      data.reply("You've increased your total HP to `" + user.hp + "`");
     }
   } else {
     data.reply("You can't use something you don't own.");
@@ -209,16 +216,23 @@ m.remove_inv_item = function(user, key) {
   user.inventory = JSON.stringify(inv);
 }
 
-m.add_inv_item = async function(user, key) {
+m.add_inv_item = function(user, key) {
+  var inv = JSON.parse(user.inventory);
+
   // Brass Knuckles can only be used once
   if (key == "brass") {
     if (user.used_brass) {
       return false;
     }
+
+    if (inv.includes(key)) {
+      return false;
+    }
   }
 
-  var inv = JSON.parse(user.inventory);
   inv.push(key);
+
+
 
   user.inventory = JSON.stringify(inv);
 
