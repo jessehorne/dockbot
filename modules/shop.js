@@ -12,7 +12,7 @@ m.help += "`db inv` - Show your inventory!";
 m.items = [
   {name: 'Health Pack', desc: 'Restores HP to full.', key: 'health', cost: 1000 },
   {name: 'Brass Knuckles', desc: 'Doubles future attack damage for life.', key: 'brass', cost: 50000 },
-  {name: 'Experience Pack', desc: 'Increases experience level by 1 point.', key: 'exp', cost: 1000 },
+  // {name: 'Experience Pack', desc: 'Increases experience level by 1 point.', key: 'exp', cost: 1000 },
   {name: 'Karma Pack', desc: 'Brings karma level back to 0.', key: 'karma', cost: 5000 },
   {name: 'Armor', desc: 'Gives you an extra 50 hp.', key: 'armor', cost: 1000 },
   {name: 'Strength Juice', desc: 'Increases your strength by 1 point.', key: 'strength', cost: 1000 },

@@ -2,11 +2,18 @@ const Discord = require('discord.js');
 const helpers = require("../helpers");
 const models = require("../models").db;
 
-var me = {};
+var m = {};
 
-me.help = "`db me` - Get your stats!";
+m.help = "`db me` - Get your stats!";
 
-me.valid = function(data) {
+m.healths = [
+  ":heart:", ":brown_heart:", ":orange_heart:", ":yellow_heart:", ":green_heart:",
+  ":blue_heart:", ":purple_heart:", ":white_heart:", ":black_heart:"
+];
+
+m.healths = m.healths.reverse();
+
+m.valid = function(data) {
   if (data[0] != "me") {
     return false;
   }
@@ -14,14 +21,26 @@ me.valid = function(data) {
   return true;
 }
 
-me.pass = function(data) {
+m.get_heart_code = function(user) {
+  const nine = user.max_hp / 9;
+
+  for (var x=1; x<=9; x++) {
+    if (user.hp <= x*nine) {
+      return m.healths[x-1];
+    }
+  }
+
+  return m.healths[m.healths.length-1];
+}
+
+m.pass = function(data) {
   return false;
 }
 
-me.handle = async function(data, user=null) {
+m.handle = async function(data, user=null) {
   // Validate
   const msg = helpers.db.parse_msg(data);
-  if (!me.valid(msg)) {
+  if (!m.valid(msg)) {
     return false;
   }
 
@@ -37,23 +56,28 @@ me.handle = async function(data, user=null) {
   // Create Embed
   const embed = new Discord.MessageEmbed();
   embed.setColor('#03f4fc');
-  embed.setTitle(`Stats`);
+  embed.setTitle(`Aaarrg, here's yer record...`);
+
+  const heart_code = m.get_heart_code(db_user);
 
   var message = "";
 
   var fields = [
-    { name: 'Name', value: db_user.name },
-    { name: 'Karma', value: db_user.karma },
-    { name: 'Experience', value: db_user.exp },
-    { name: 'Strength', value: db_user.strength },
-    { name: 'HP', value: db_user.hp + "/" + db_user.max_hp },
-    { name: 'Wallet', value: "$" + db_user.wallet },
-    { name: 'Bank', value: "$" + db_user.bank },
-    { name: 'Total Commands', value: db_user.total_commands }
+    { name: 'Pirate Name', value: "__*" + db_user.name + "*__" },
+    { name: 'Karma', value: ":yin_yang: " + db_user.karma },
+    { name: 'Strength', value: ":muscle: " + db_user.strength },
+    { name: 'HP', value: heart_code + " " + db_user.hp + "/" + db_user.max_hp },
+    { name: 'Wallet', value: ":dollar: $" + helpers.db.format_money(db_user.wallet) },
+    { name: 'Bank', value: ":moneybag: $" + helpers.db.format_money(db_user.bank) },
+    { name: 'Total Commands Thus Far', value: db_user.total_commands }
   ];
 
   fields.forEach(function(c) {
-    message = message + "`" + c.name + "` - " + c.value + "\n";
+    const spacer = 12;
+    const count = spacer - c.name.length;
+    var spaces = "";
+    for (var x=0; x<count/2; x++) { spaces += " "; }
+    message = message + "`" + spaces + c.name + spaces + "` " + c.value + "\n";
   });
 
   embed.addField('Stats', message);
@@ -65,4 +89,4 @@ me.handle = async function(data, user=null) {
   return true;
 }
 
-module.exports = me
+module.exports = m

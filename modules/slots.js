@@ -22,8 +22,6 @@ for (var i=11; i>0; i--) {
   }
 }
 
-console.log(m.reel)
-
 m.generate_line = function() {
   var line = [];
 

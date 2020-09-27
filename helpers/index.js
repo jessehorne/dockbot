@@ -19,7 +19,7 @@ db.help = function(helps) {
   // Create Embed
   const embed = new Discord.MessageEmbed();
   embed.setColor('#03f4fc');
-  embed.setTitle(`Stats`);
+  embed.setTitle(`Aaarrg, here's yer status`);
 
   embed.addFields(
     { name: 'Commands', value: message}
@@ -28,6 +28,10 @@ db.help = function(helps) {
   embed.setFooter('I hope this helps.');
 
   return embed;
+}
+
+db.format_money = function(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 module.exports = {
