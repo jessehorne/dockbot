@@ -8,7 +8,7 @@ const Discord = require('discord.js');
 const dockbot = new Discord.Client();
 
 if (process.env.APP_DEBUG) {
-  // models.sequelize.sync({ force: true });
+  models.sequelize.sync();
 }
 
 global.users = [];
@@ -107,7 +107,9 @@ dockbot.on('message', async function (msg) {
         bank: 0,
         total_commands: 1,
         waittime: process.env.WAITTIME,
-        hp: 100
+        hp: 100,
+        inventory: '[]',
+        used_brass: false
       });
     }
 

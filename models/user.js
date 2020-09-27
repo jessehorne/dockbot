@@ -22,10 +22,16 @@ module.exports = (sequelize, DataTypes) => {
     bank: DataTypes.INTEGER,
     total_commands: DataTypes.INTEGER,
     waittime: DataTypes.INTEGER,
-    hp: DataTypes.INTEGER
+    hp: DataTypes.INTEGER,
+    inventory: {
+      type: DataTypes.TEXT
+    },
+    used_brass: {
+      type: DataTypes.BOOLEAN
+    }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'User'
   });
   return User;
 };

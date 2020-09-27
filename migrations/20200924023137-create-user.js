@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       hp: {
-        type: Sequeliez.INTEGER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +42,16 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      inventory: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+        defaultValue: "[]"
+      },
+      used_brass: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       }
     });
   },
