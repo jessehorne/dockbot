@@ -18,7 +18,7 @@ m.items = [
   {name: 'Strength Juice', desc: 'Increases your strength by 1 point.', key: 'strength', cost: 1000 },
 ];
 
-m.shop_list_embed = function() {
+m.shop_list_embed = function(user) {
   const embed = new Discord.MessageEmbed();
   embed.setColor('#6b32a8');
   embed.setTitle(`Shop`);
@@ -29,7 +29,11 @@ m.shop_list_embed = function() {
   var message = "";
 
   m.items.forEach(function(i, index) {
-    message += (index+1) + ". " + i.name + " - `" + i.key + "` for `$" + i.cost + "` - " + i.desc + "\n";
+    if (i.key == "brass" && user.used_brass) {
+      message += (index+1) + ". ~~" + i.name + "~~ - `" + i.key + "` for `$" + i.cost + "` - " + i.desc + "\n";
+    } else {
+      message += (index+1) + ". " + i.name + " - `" + i.key + "` for `$" + i.cost + "` - " + i.desc + "\n";
+    }
   });
 
   embed.addField('Available Items', message);
@@ -62,7 +66,7 @@ m.handle = async function(data, user=null) {
 
   // SHOP
   if (msg[0] == "shop") {
-    data.reply("", m.shop_list_embed());
+    data.reply("", m.shop_list_embed(user));
     return true;
   }
 
