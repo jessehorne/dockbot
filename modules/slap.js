@@ -82,7 +82,7 @@ m.handle = async function(data, user=null) {
     hit_effect = m.valids_plural[m.valids.indexOf(msg[0])];
 
     if (affected_user.hp <= 0) {
-      affected_user.hp = 100;
+      affected_user.hp = affected_user.max_hp;
       affected_user.wallet = 0;
       hit_effect = "killed";
     }

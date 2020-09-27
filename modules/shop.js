@@ -10,7 +10,7 @@ m.help += "`db use X` - Use X item!\n";
 m.help += "`db inv` - Show your inventory!";
 
 m.items = [
-  {name: 'Health Pack', desc: 'Restores hp to 100 if under 100.', key: 'health', cost: 1000 },
+  {name: 'Health Pack', desc: 'Restores HP to full.', key: 'health', cost: 1000 },
   {name: 'Brass Knuckles', desc: 'Doubles future attack damage for life.', key: 'brass', cost: 50000 },
   {name: 'Experience Pack', desc: 'Increases experience level by 1 point.', key: 'exp', cost: 1000 },
   {name: 'Karma Pack', desc: 'Brings karma level back to 0.', key: 'karma', cost: 5000 },
@@ -167,12 +167,10 @@ m.handle = async function(data, user=null) {
 
   if (inventory.includes(item)) {
     if (item == "health") {
-      if (user.hp < 100) {
-        user.hp = 100;
-        m.remove_inv_item(user, item);
-        await user.save();
-      }
-      data.reply("Your health has been restored to `100`!");
+      user.hp = user.max_hp;
+      m.remove_inv_item(user, item);
+      await user.save();
+      data.reply("Your health has been restored to `" + user.max_hp + "`!");
     } else if (item == "brass") {
       if (user.used_brass) {
         data.reply("You've already used Brass Knuckles.");
@@ -197,10 +195,10 @@ m.handle = async function(data, user=null) {
 
       data.reply("Your karma is back to neutral (aka `0`).");
     } else if (item == "armor") {
-      user.hp += 50;
+      user.max_hp += 50;
       m.remove_inv_item(user, item);
       await user.save();
-      data.reply("You've increased your total HP to `" + user.hp + "`");
+      data.reply("You've increased your total HP to `" + user.max_hp + "`");
     }
   } else {
     data.reply("You can't use something you don't own.");

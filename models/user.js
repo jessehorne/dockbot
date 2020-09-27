@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     used_brass: {
       type: DataTypes.BOOLEAN
+    },
+    max_hp: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
