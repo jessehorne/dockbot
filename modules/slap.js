@@ -55,9 +55,13 @@ m.handle = async function(data, user=null) {
   }
 
   if (mention_user) {
-    var hit = Math.floor(Math.random() * 10) < 8;
+    // var hit = Math.floor(Math.random() * 10) < 8;
+    var hit = true;
     var hit_person;
     var hit_dmg = Math.floor(Math.random() * 10)+1;
+
+    // Add strength to hit_dmg
+    hit_dmg += user.strength;
 
     if (user.used_brass) {
       hit_dmg = hit_dmg * 2;

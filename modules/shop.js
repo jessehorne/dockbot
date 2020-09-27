@@ -14,7 +14,8 @@ m.items = [
   {name: 'Brass Knuckles', desc: 'Doubles future attack damage for life.', key: 'brass', cost: 50000 },
   {name: 'Experience Pack', desc: 'Increases experience level by 1 point.', key: 'exp', cost: 1000 },
   {name: 'Karma Pack', desc: 'Brings karma level back to 0.', key: 'karma', cost: 5000 },
-  {name: 'Armor', desc: 'Gives you an extra 50 hp.', key: 'armor', cost: 1000 }
+  {name: 'Armor', desc: 'Gives you an extra 50 hp.', key: 'armor', cost: 1000 },
+  {name: 'Strength Juice', desc: 'Increases your strength by 1 point.', key: 'strength', cost: 1000 },
 ];
 
 m.shop_list_embed = function() {
@@ -135,6 +136,15 @@ m.handle = async function(data, user=null) {
         data.reply("Sorry. You can't do that.");
         return true;
       }
+    } else if (item_key == "strength") {
+      var added = m.add_inv_item(user, "strength");
+
+      if (added) {
+        data.reply("You've bought one `strength`.");
+      } else {
+        data.reply("Sorry. You can't do that.");
+        return true;
+      }
     }
 
     user.wallet -= item_cost;
@@ -199,6 +209,11 @@ m.handle = async function(data, user=null) {
       m.remove_inv_item(user, item);
       await user.save();
       data.reply("You've increased your total HP to `" + user.max_hp + "`");
+    } else if (item == "strength") {
+      user.strength += 1;
+      m.remove_inv_item(user, item);
+      await user.save();
+      data.reply("You've increased your total strength to `" + user.strength + "`");
     }
   } else {
     data.reply("You can't use something you don't own.");

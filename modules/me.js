@@ -42,13 +42,14 @@ me.handle = async function(data, user=null) {
   var message = "";
 
   var fields = [
-    { name: 'Name', value: db_user.name},
-    { name: 'Karma', value: db_user.karma},
-    { name: 'Experience', value: db_user.exp},
+    { name: 'Name', value: db_user.name },
+    { name: 'Karma', value: db_user.karma },
+    { name: 'Experience', value: db_user.exp },
+    { name: 'Strength', value: db_user.strength },
     { name: 'HP', value: db_user.hp + "/" + db_user.max_hp },
-    { name: 'Wallet', value: "$" + db_user.wallet},
-    { name: 'Bank', value: "$" + db_user.bank},
-    { name: 'Total Commands', value: db_user.total_commands}
+    { name: 'Wallet', value: "$" + db_user.wallet },
+    { name: 'Bank', value: "$" + db_user.bank },
+    { name: 'Total Commands', value: db_user.total_commands }
   ];
 
   fields.forEach(function(c) {

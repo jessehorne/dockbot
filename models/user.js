@@ -31,6 +31,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     max_hp: {
       type: DataTypes.INTEGER
+    },
+    strength: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
