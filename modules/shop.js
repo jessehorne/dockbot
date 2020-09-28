@@ -30,9 +30,9 @@ m.shop_list_embed = function(user) {
 
   m.items.forEach(function(i, index) {
     if (i.key == "brass" && user.used_brass) {
-      message += (index+1) + ". ~~" + i.name + "~~ - `" + i.key + "` for `$" + i.cost + "` - " + i.desc + "\n";
+      message += (index+1) + ". ~~" + i.name + "~~ - `" + i.key + "` for `$" + helpers.db.format_money(i.cost) + "` - " + i.desc + "\n";
     } else {
-      message += (index+1) + ". " + i.name + " - `" + i.key + "` for `$" + i.cost + "` - " + i.desc + "\n";
+      message += (index+1) + ". " + i.name + " - `" + i.key + "` for `$" + helpers.db.format_money(i.cost) + "` - " + i.desc + "\n";
     }
   });
 
