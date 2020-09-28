@@ -27,7 +27,9 @@ db.help = function(helps) {
     { name: 'Commands', value: message}
   );
 
-  embed.setFooter('I hope this helps.');
+  embed.addField('Need more help, looking for a crew or searching for secret treasures? Join us on Discord.', '[Click here](https://discord.gg/4TVQez4)!')
+
+  embed.setFooter('');
 
   return embed;
 }
