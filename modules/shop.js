@@ -13,7 +13,7 @@ m.items = [
   {name: 'Health Pack', desc: 'Restores HP to full.', key: 'health', cost: 1000 },
   {name: 'Brass Knuckles', desc: 'Doubles future attack damage for life.', key: 'brass', cost: 50000 },
   // {name: 'Experience Pack', desc: 'Increases experience level by 1 point.', key: 'exp', cost: 1000 },
-  {name: 'Karma Pack', desc: 'Brings karma level back to 0.', key: 'karma', cost: 5000 },
+  {name: 'Karma Pack', desc: 'Brings karma level up 1 point.', key: 'karma', cost: 5000 },
   {name: 'Armor', desc: 'Gives you an extra 50 hp.', key: 'armor', cost: 1000 },
   {name: 'Strength Juice', desc: 'Increases your strength by 1 point.', key: 'strength', cost: 1000 },
 ];
@@ -203,7 +203,7 @@ m.handle = async function(data, user=null) {
 
       data.reply("You've gained one experience point!");
     } else if (item == "karma") {
-      user.karma = 0;
+      user.karma += 1;
       m.remove_inv_item(user, item);
       await user.save();
 
