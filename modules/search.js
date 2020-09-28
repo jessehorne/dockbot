@@ -2,13 +2,10 @@ const helpers = require("../helpers");
 const models = require('../models').db;
 
 const areas = [
-  'cabin', 'lodge', 'house', 'room', 'garage', 'closet', 'porch', 'attic', 'stairway',
-  'road', 'sidewalk', 'railroad', 'interstate', 'highway', 'dumpster', 'bench', 'chair',
-  'bushes', 'tree', 'forest', 'hillside', 'mountains',
-  'northside', 'southside', 'eastside', 'westside', 'uptown', 'downtown', 'bar', 'circus',
-  'boat', 'ship', 'ocean', 'pond', 'beach',
-  'car', 'truck', 'jeep', 'mazda',
-  'northern air temple', 'southern air temple', 'fire nation', 'water tribe',
+  'port', 'starboard', 'bow', 'mast', 'deck', 'cabin', 'cannons', 'windlass',
+  'gaff', 'stairs', 'helm', 'dinghy', 'dock', 'barrels', 'crates', 'boxes',
+  'chest', 'walkway', 'stowage', 'closet', 'desk', 'beach', 'berth', 'armory',
+  'pocket', 'bag', 'stool', 'bucket'
 ];
 
 const chance = process.env.SEARCH_CHANCE
