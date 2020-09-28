@@ -1,6 +1,15 @@
 DockBot
 ===
 
-A pirate themed Discord bot game inspired by DankMemer.
+A pirate-themed MMO for Discord.
 
-more coming soon...
+![DockBot Logo](./img/logo.png)
+
+# What is DockBot?
+coming soon...
+
+# How to Play
+coming soon...
+
+# How to Contribute
+coming soon...
