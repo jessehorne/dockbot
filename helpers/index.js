@@ -19,7 +19,9 @@ db.help = function(helps) {
   // Create Embed
   const embed = new Discord.MessageEmbed();
   embed.setColor('#03f4fc');
-  embed.setTitle(`Stats`);
+  embed.setTitle(`Oi Matey, need some tips?`);
+
+  embed.setDescription("Welcome to the Endless Seas. You're a pirate whose goal is to become the richest in the world. You'll earn money, gamble it and hoard it as best as you can. With help from your friends, you could get to the top. Be careful, though, because others will be there to cut you down.");
 
   embed.addFields(
     { name: 'Commands', value: message}

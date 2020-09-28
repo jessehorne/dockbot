@@ -8,14 +8,11 @@ var m = {};
 m.help = "`db beg` - Beg people for money!";
 
 m.givers = [
-  'Peter Kropotkin', 'Emma Goldman', 'Rudolf Rocker', 'William Godwin',
-  'The Man', 'The Dude', 'El Hombre', 'Supermang', 'Superwoman', 'Spidermane',
-  'A famous person', 'Your neighbor', 'Your great great grandmother', 'Brian',
-  'Karl', 'The Don', 'HoneyBear', 'RandomV3', 'Coolin', 'Joja', 'Rocky', 'Brrl',
-  'The universe', 'The law of attraction', 'Your best friend, me', 'Bobby Sands',
-  'Lao Tzu', 'Your professor', 'The last avatar', 'Aang', 'Katara', 'Zuko', 'Toph',
-  'Harry Otter', 'A bird', 'A cat', 'A dog', 'A hobo', 'A dirty commie', 'A politician',
-  'Alan Watts', 'A Zen Master', 'Obama', 'Someone poorer than you', 'A wealty person'
+  'Maurice Blackbeard', 'Kind Stephie Red', 'Understanding Maury', 'Cutthroad Stephie',
+  'Jim the Kind', 'Rosey Greyhate', 'The Red Parrot', 'Dread Thomas', 'Captain Billiam',
+  'Captain Johnny', 'Bobby Pirate', 'Moose', 'Bones Daniel', 'Black Flag Billy', 'Captain Jack',
+  'William Lionbane', 'Patrick Nofoot', 'Woodenleg Jones', 'Red Beard', 'Blue Beard', 'Black Beard',
+  'Sir Francis', 'Captain Drake', 'Henry Morgan', 'Captain Kidd', 'Madame Cheng'
 ];
 
 m.valid = function(data) {
