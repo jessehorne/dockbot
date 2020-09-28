@@ -87,6 +87,12 @@ m.handle = async function(data, user=null) {
 
     if (affected_user.hp <= 0) {
       user.wallet += affected_user.wallet;
+
+      // if most wanted
+      if (affected_user.karma < 0) {
+        user.wallet += Math.abs(affected_user.karma)*1000;
+      }
+
       user.karma -= 1;
       await user.save();
 
