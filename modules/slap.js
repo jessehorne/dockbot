@@ -87,8 +87,9 @@ m.handle = async function(data, user=null) {
 
     if (affected_user.hp <= 0) {
       user.wallet += affected_user.wallet;
+      user.karma -= 1;
       await user.save();
-      
+
       affected_user.hp = affected_user.max_hp;
       affected_user.wallet = 0;
       hit_effect = "killed";
