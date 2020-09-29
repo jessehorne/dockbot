@@ -1,14 +1,14 @@
 DockBot
 ===
 
-A pirate-themed MMO for Discord.
+A pirate-themed text-based multiplayer game for Discord.
 
-*Don't worry, it's SFW!*
+Don't worry, it's **SFW!**
 
 ![DockBot Logo](./img/logo.png)
 
 # What is DockBot?
-DockBot gives users in your Discord server access to the Endless Seas, a watery realm with all the piratey goodness. DockBot was inspired by DankMemer but quickly turned into it's own unique bot with a boat-y twist. With DockBot, your users will sail the seas in search for treasure, gamble their earnings and face their opponents in epic text-based action. Just watch out for the Royal Navy!
+DockBot gives users in your Discord server access to the *Endless Seas*, a watery realm with all kinds piratey goodness. You can kill, steal, and gamble it all. DockBot was inspired by DankMemer but quickly turned into it's own unique bot with a boat-y twist. With DockBot, your users will sail the seas in search for treasure, gamble their earnings and face their opponents in epic text-based action. Just watch out for the Royal Navy!
 
 ### Featuring...
 
@@ -36,17 +36,7 @@ A good first command to run is `db help`. :)
 
 # How to Contribute
 
-### Found a bug or want to offer some feedback?
-
-Please join our Discord server and let me know in `#dockbot` or you can skip all that by creating an issue in the GitHub tracker.
-
-### Are you a coder?
-
-Get in touch! If you have ideas or want to help implement mine, just reach out. I'm a friendly guy. You're also welcome to discuss whatever you're working on in `#community-projects`.
-
-### Want to spread the word about the upcoming Discord Bot Savoir, DockBot?
-
-I like that. I like you. Get in touch.
+coming soon...
 
 # Running DockBot
 
