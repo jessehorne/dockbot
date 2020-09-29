@@ -24,7 +24,7 @@ DockBot gives users in your Discord server access to the Endless Seas, a watery 
 ## And much more...
 
 # How to Play
-Since DockBot is so early in development, it's not on any servers so far. Get in touch with me if you'd like to give it a try on your server. For now, please join **Dock's Dev Dinghy** to play. There's dedicated channels to play and you can also DM DockBot if you want to be more private.
+Since DockBot is so early in development, it's only on my server. Get in touch with me if you'd like to give it a try on yours. For now, please join **Dock's Dev Dinghy** to play. There's dedicated channels to play and you can also DM DockBot if you want to be more private.
 
 [![Discord](https://discordapp.com/api/guilds/758505606339625012/widget.png?style=banner1)](https://discord.gg/4TVQez4)
 
@@ -42,7 +42,7 @@ Please join our Discord server and let me know in `#dockbot` or you can skip all
 
 ### Are you a coder?
 
-Get in touch! If you have ideas or want to help implement mine, just reach out. I'm a friendly guy.
+Get in touch! If you have ideas or want to help implement mine, just reach out. I'm a friendly guy. You're also welcome to discuss whatever you're working on in `#community-projects`.
 
 ### Want to spread the word about the upcoming Discord Bot Savoir, DockBot?
 
@@ -79,4 +79,4 @@ BEG_CHANCE=70
 5. Run it! `npx nodemon`
 
 
-### Thanks for checking out the project. I look forward to seeing you all on the Dinghy.
+### Thanks for checking out the project. I look forward to seeing you on the Dinghy.
