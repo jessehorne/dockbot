@@ -5,7 +5,7 @@ var m = {};
 
 m.help = "`db deposit|dep X` - Deposits X from your wallet to your bank!\n";
 m.help += "`db withdraw X` - Withdraw X from your bank to your wallet!";
-m.valids = ['withdraw'];
+m.valids = ['withdraw', 'deposit', 'dep'];
 
 m.valid = function(data) {
   if (!m.valids.includes(data[0])) {
