@@ -98,6 +98,7 @@ m.handle = async function(data, user=null) {
 
       affected_user.hp = affected_user.max_hp;
       affected_user.wallet = 0;
+      affected_user.karma = 0;
       hit_effect = "killed";
     }
 
