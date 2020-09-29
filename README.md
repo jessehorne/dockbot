@@ -1,4 +1,4 @@
-DockBot [![star this repo](https://githubbadges.com/star.svg?user=jessehorne&repo=dock&style=flat)](https://github.com/jessehorne/dock)
+DockBot
 ===
 
 A pirate-themed MMO for Discord.
@@ -79,4 +79,4 @@ BEG_CHANCE=70
 5. Run it! `npx nodemon`
 
 
-### Thanks for taking the time to read this. I look forward to seeing you on the Dinghy!
+### Thanks for checking out the project. I look forward to seeing you all on the Dinghy.
