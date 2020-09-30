@@ -21,6 +21,12 @@ DockBot gives users in your Discord server access to the *Endless Seas*, a water
 ## Slots
 ![db slots help](./img/three.png)
 
+## Stats
+![db me](./img/four.png)
+
+## A Shop!
+![db shop](./img/five.png)
+
 ## And much more...
 
 # How to Play
