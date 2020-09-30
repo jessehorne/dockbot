@@ -41,6 +41,10 @@ dockbot.on('ready', () => {
 
 // On Message
 dockbot.on('message', async function (msg) {
+  if (msg.author.bot) {
+    return;
+  }
+  
   // If it's my own message, ignore!
   var who = msg.author.id;
 
@@ -120,6 +124,12 @@ dockbot.on('message', async function (msg) {
   }
 
   // Ready to handle message!
+  var m = helper.db.parse_msg(msg);
+  if (m.length == 0 && !can_pass) {
+    msg.reply("Please use `db help`.");
+    return;
+  }
+
   var good = false;
 
   modules.forEach(function(m) {
