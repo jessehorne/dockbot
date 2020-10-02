@@ -5,8 +5,8 @@ const models = require("../models").db;
 var m = {};
 
 m.help = "`db shop` - Shop for useful items!\n";
-m.help += "`db buy X` - Buy item X from shop!\n";
-m.help += "`db use X` - Use X item!\n";
+m.help += "`db buy X Y` - Buy item X from shop! Y is an optional quantity.\n";
+m.help += "`db use X Y` - Use X item! Y is an optional quantity.\n";
 m.help += "`db inv` - Show your inventory!\n";
 m.help += "`db equip|unquip X` - Equip or unquip an item in your inventory!\n";
 
@@ -81,7 +81,20 @@ m.handle = async function(data, user=null) {
 
     const item_key = msg[1];
 
-    const item_cost = m.item_cost(item_key);
+    var item_cost = m.item_cost(item_key);
+
+    var item_qty = msg[2];
+
+    if (!item_qty) {
+      item_qty = 1;
+    } else {
+      item_cost = item_cost * item_qty;
+    }
+
+    if (item_qty > 10) {
+      item_cost = item_cost / item_qty;
+      item_qty = 1;
+    }
 
     if (!item_cost) {
       data.reply("I'm sorry, I have no idea what you're trying to buy.");
@@ -103,10 +116,10 @@ m.handle = async function(data, user=null) {
     });
 
     // The user can afford it, lets buy it IF they can own it
-    var added = m.add_inv_item(user, item_val);
+    var added = m.add_inv_item(user, item_val, item_qty);
 
     if (added) {
-      data.reply("You've bought one `" + item_key + "`.");
+      data.reply("You've bought `" + item_qty + "` `" + item_key + "` for $" + helpers.db.format_money(item_cost) + ".");
     } else {
       data.reply("Sorry. You can't do that.");
       return true;
@@ -186,58 +199,71 @@ m.handle = async function(data, user=null) {
   if (msg[0] == "use") {
     var inventory = JSON.parse(user.inventory);
     var item = msg[1];
+    var qty = msg[2];
 
-    var has_item = false;
+    if (!qty) {
+      qty = 1;
+    }
 
-    inventory.forEach(function(i) {
-      if (i.name == item) {
-        has_item = true;
-        return;
-      }
-    });
+    if (qty > 10) {
+      qty = 1;
+    }
 
-    if (has_item) {
-      if (item == "health") {
-        user.hp = user.max_hp;
-        m.remove_inv_item(user, item);
-        await user.save();
-        data.reply("Your health has been restored to `" + user.max_hp + "`!");
-      } else if (item == "brass") {
-        if (user.used_brass) {
-          data.reply("You've already used Brass Knuckles.");
-        } else {
-          user.used_brass = true;
+    // DO QTY TIMES
+    for (var x=0; x<qty; x++) {
+      var has_item = false;
+
+      inventory.forEach(function(i) {
+        if (i.name == item) {
+          has_item = true;
+          return;
+        }
+      });
+
+      if (has_item) {
+        if (item == "health") {
+          user.hp = user.max_hp;
           m.remove_inv_item(user, item);
+          await user.save();
+          data.reply("Your health has been restored to `" + user.max_hp + "`!");
+        } else if (item == "brass") {
+          if (user.used_brass) {
+            data.reply("You've already used Brass Knuckles.");
+          } else {
+            user.used_brass = true;
+            m.remove_inv_item(user, item);
 
+            await user.save();
+
+            data.reply("You've put on your Brass Knuckles. All future attack damage will be doubled.");
+          }
+        } else if (item == "exp") {
+          user.exp += 1;
+          m.remove_inv_item(user, item);
           await user.save();
 
-          data.reply("You've put on your Brass Knuckles. All future attack damage will be doubled.");
+          data.reply("You've gained one experience point!");
+        } else if (item == "karma") {
+          user.karma += 1;
+          m.remove_inv_item(user, item);
+          await user.save();
+
+          data.reply("Your karma is back to neutral (aka `0`).");
+        } else if (item == "armor") {
+          user.max_hp += 50;
+          m.remove_inv_item(user, item);
+          await user.save();
+          data.reply("You've increased your total HP to `" + user.max_hp + "`");
+        } else if (item == "strength") {
+          user.strength += 1;
+          m.remove_inv_item(user, item);
+          await user.save();
+          data.reply("You've increased your total strength to `" + user.strength + "`");
         }
-      } else if (item == "exp") {
-        user.exp += 1;
-        m.remove_inv_item(user, item);
-        await user.save();
-
-        data.reply("You've gained one experience point!");
-      } else if (item == "karma") {
-        user.karma += 1;
-        m.remove_inv_item(user, item);
-        await user.save();
-
-        data.reply("Your karma is back to neutral (aka `0`).");
-      } else if (item == "armor") {
-        user.max_hp += 50;
-        m.remove_inv_item(user, item);
-        await user.save();
-        data.reply("You've increased your total HP to `" + user.max_hp + "`");
-      } else if (item == "strength") {
-        user.strength += 1;
-        m.remove_inv_item(user, item);
-        await user.save();
-        data.reply("You've increased your total strength to `" + user.strength + "`");
+      } else {
+        data.reply("You can't use that, lad! Try `equip` instead or don't bother...");
+        return true;
       }
-    } else {
-      data.reply("You can't use that, lad! Try `equip` instead or don't bother...");
     }
   }
 
@@ -329,7 +355,7 @@ m.equip_item = function(user, key) {
   return {ok: true, msg: "You've equipped `" + item.name + "`!"};
 }
 
-m.add_inv_item = function(user, i) {
+m.add_inv_item = function(user, i, qty=1) {
   var inv = JSON.parse(user.inventory);
 
   // Brass Knuckles can only be used once
@@ -339,14 +365,16 @@ m.add_inv_item = function(user, i) {
     }
   }
 
-  var item = {};
-  item.name = i.key;
-  item.equipped = false;
-  item.equippable = i.equippable;
-  item.type = i.type;
-  item.dmg = i.dmg;
+  for (var x=0; x<qty; x++) {
+    var item = {};
+    item.name = i.key;
+    item.equipped = false;
+    item.equippable = i.equippable;
+    item.type = i.type;
+    item.dmg = i.dmg;
 
-  inv.push(item);
+    inv.push(item);
+  }
 
   user.inventory = JSON.stringify(inv);
 
